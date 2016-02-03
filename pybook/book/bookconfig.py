@@ -30,7 +30,7 @@ class BookConfig:
     def read_config(self):
         try:
             config_path = os.path.join(os.path.abspath(self.root), 'book.json')
-            logger.info('Reading book.json')
+            logger.debug('Reading book.json')
             with open(config_path, 'r') as config_file:
                 book_json = json.loads(config_file.read())
         except FileNotFoundError as e:

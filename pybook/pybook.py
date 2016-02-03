@@ -23,7 +23,7 @@ def main():
     init_parser.add_argument('-r', '--root',
                              help='root directory')
     init_parser.add_argument('-v', '--verbose',
-                             action='store_true',
+                             action='count',
                              help='Be verbose')
 
     build_parser = command.add_parser('build')
@@ -35,9 +35,11 @@ def main():
                              help='build directory')
 
     args = parser.parse_args()
-
     if args.verbose:
-        logging.basicConfig(level=logging.INFO)
+        verbose_levels = [logging.INFO, logging.DEBUG]
+        logging.basicConfig(level=verbose_levels[args.verbose-1])
+        logger = logging.getLogger('pybook')
+        logger.setLevel(verbose_levels[args.verbose-1])
 
     if args.command == 'init':
         pybook_init(args.root)
