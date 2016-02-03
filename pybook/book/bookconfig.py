@@ -1,45 +1,37 @@
 import os
-import yaml
+import json
 
-class BookConfig(Object):
+from pybook.utils import logger
 
-    def __init__(self):
-        title = None
-        author = None
-        root = None
-        src = None
-        dst = None
-        multilingual = False
+
+class BookConfig:
+    def __init__(self, root):
+        self.title = None
+        self.author = None
+        self.description = None
+        self.variables = {}
+        self.root = root
+        self.build = None
+        self.multilingual = False
 
     def read_config(self):
         try:
-            with open('book.json') as bookjson:
-                config_file = yaml.load(stream.read())
-        except:
-            # TODO: check for different exceptions
-            return self
+            config_path = os.path.join(os.path.abspath(self.root), 'book.json')
+            logger.debug('Reading `%s`' % config_path)
+            with open(config_path, 'r') as book_file:
+                book_json = json.loads(book_file.read())
+        except FileNotFoundError as e:
+            logger.debug('Cannot find `book.json`')
+            return
+        except Exception as e:
+            logger.debug('Error reading %s' % config_path)
+            return
 
-        self.title = config_file.get('title', '').strip()
-        self.author = config_file.get('author', '').strip()
-        self.dest = os.path.abspath('.')
+        self.title = book_json.get('title', '').strip()
+        self.author = book_json.get('author', '').strip()
+        self.description = book_json.get('description', '').strip()
+        self.direction = book_json.get('direction', '').strip()
+        self.variables = book_json.get('variables', {})
 
-    def get_root(self):
-        return self.root
-
-    def set_root(self, root):
-        self.root = root
-        return self
-
-    def get_src(self):
-        return self.src
-
-    def set_src(self, src):
-        self.src = src
-        return self
-
-    def get_dest(self):
-        return self.dest
-
-    def set_dest(self, dest):
-        self.dest = dest
+        self.build = os.path.abspath('build')
         return self

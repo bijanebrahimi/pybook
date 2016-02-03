@@ -9,4 +9,9 @@ setup(name='pybook',
       author_email='bijanebrahimi@riseup.net',
       license='GPLv3',
       packages=['pybook'],
+      install_requires=['argparse'],
+      entry_points="""
+      [console_scripts]
+      pybook = pybook.pybook:main
+      """,
       zip_safe=False)
