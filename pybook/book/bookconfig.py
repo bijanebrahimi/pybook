@@ -5,15 +5,20 @@ from pybook.utils import logger
 
 
 class BookConfig:
-    def __init__(self, root, build='build'):
+    def __init__(self, root, build='build', language='en', direction='ltr',
+                 structure=None):
+
         self.title = None
         self.author = None
         self.description = None
         self.variables = {}
-        self.structure = {'readme': 'README.md',
+        self.structure = {'book': 'book.json',
+                          'readme': 'README.md',
                           'summary': 'SUMMARY.md'}
-        self.language = 'en'
-        self.direction = 'ltr'
+        if structure:
+            self.structure.update(structure)
+        self.language = language
+        self.direction = direction
         self.set_root(root)
         self.set_build(build)
 
@@ -39,7 +44,7 @@ class BookConfig:
         except Exception as e:
             # TODO: raise Exception as this should not happen
             logger.debug('Error Reading book.json File')
-            return
+            raise IOError('Error Reading book.json Config File')
 
         self.title = book_json.get('title', '').strip()
         self.author = book_json.get('author', '').strip()
@@ -63,4 +68,4 @@ class BookConfig:
 
     @property
     def readme_abs(self):
-        return ps.path.join(self.root, self.readme_rel)
+        return os.path.join(self.root, self.readme_rel)
