@@ -50,17 +50,17 @@ class BookConfig:
         self.structure.update(book_json.get('structure', {}))
 
     @property
-    def summary(self):
+    def summary_rel(self):
         return self.structure['summary']
 
     @property
     def summary_abs(self):
-        return os.path.join(self.root, self.summary)
+        return os.path.join(self.root, self.summary_rel)
 
     @property
-    def readme(self):
+    def readme_rel(self):
         return self.structure['readme']
 
     @property
     def readme_abs(self):
-        return ps.path.join(self.root, self.readme)
+        return ps.path.join(self.root, self.readme_rel)

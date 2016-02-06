@@ -8,15 +8,15 @@ from pybook.utils import logger
 def construct_bookitems(path):
     with open(path, 'r') as f:
         summary = f.read()
-    items = parse_level(summary.split('\n'), 0)
+    items = parse_levels(summary.split('\n'), 0)
     return items
 
-def parse_level(summary, current_level=0):
+def parse_levels(summary, current_level=0):
     # List of BookItem
     items = []
     while summary:
         line = summary[0]
-        line_level = level(line, spaces_in_tab=4)
+        line_level = parse_level(line, spaces_in_tab=4)
 
         if line_level < current_level:
             break
@@ -26,7 +26,7 @@ def parse_level(summary, current_level=0):
             except:
                 raise Exception("There's Should be at least one Item since It's not Root")
 
-            sub_items = parse_level(summary, line_level)
+            sub_items = parse_levels(summary, line_level)
             last_item.sub_items = sub_items
             items.append(last_item)
             continue
@@ -53,7 +53,7 @@ def parse_line(line):
         logger.debug('Ignoring line: %s' % line)
     return None
 
-def level(line, spaces_in_tab=4):
+def parse_level(line, spaces_in_tab=4):
     leading_spaces = len(line) - len(line.lstrip())
     if not leading_spaces % spaces_in_tab == 0:
         raise Exception("Indentation error")

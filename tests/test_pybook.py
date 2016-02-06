@@ -14,8 +14,8 @@ class PyBookConfigTest(TestCase):
         assert self.config.author == "PyBook"
         assert self.config.description == "GitBook Example Description"
         assert self.config.direction == "ltr"
-        assert self.config.readme == 'README.md'
-        assert self.config.summary== 'SUMMARY.md'
+        assert self.config.readme_rel == 'README.md'
+        assert self.config.summary_rel == 'SUMMARY.md'
 
 
 if __name__ == '__main__':
