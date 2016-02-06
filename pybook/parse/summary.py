@@ -1,9 +1,8 @@
 import os
 import re
-from copy import copy
 
-from pybook.book.bookitem import Chapter, BookItem
-from pybook.utils import logger
+from pybook.book.bookitem import Affix, Chapter
+from pybook.utils import logger, BookError
 
 def construct_bookitems(path):
     with open(path, 'r') as f:
@@ -45,7 +44,11 @@ def parse_line(line):
 
     if chapter_regex.match(line):
         name, path = re.match(" *[\*\-\+]? +\[(.*)\]\((.*)\)", line).groups()
-        return Chapter(name, path)
+        if line.startswith('-'):
+            return Chapter(name, path)
+        else:
+            logger.debug('Affix %s' % name)
+            return Affix(name, path)
     elif affix_regex.match(line):
         # TODO: implement Affix
         pass
@@ -56,5 +59,5 @@ def parse_line(line):
 def parse_level(line, spaces_in_tab=4):
     leading_spaces = len(line) - len(line.lstrip())
     if not leading_spaces % spaces_in_tab == 0:
-        raise Exception("Indentation error")
+        raise BookError("Indentation error")
     return leading_spaces / spaces_in_tab

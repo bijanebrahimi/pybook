@@ -1,18 +1,16 @@
 import os
 
-from pybook.book.bookitem import BookItem, BookItems
-from pybook.book.bookconfig import BookConfig
+from .bookconfig import BookConfig
 from pybook.parse.summary import construct_bookitems
-from pybook.renderers import HtmlRenderer
 from pybook.utils import logger
 
-class PyBook:
-    def __init__(self, root, build='build'):
-        self.config = BookConfig(root=root, build=build)
+
+class Book:
+    def __init__(self, root, build='build', **book_config):
+        self.config = BookConfig(root=root, build=build, **book_config)
         self.book_items = []
 
-        html_renderer = HtmlRenderer(self)
-        self.renderers = {'html': html_renderer}
+        self.renderers = {}
 
     def init(self):
         logger.info('Start Initializing ...')
@@ -50,8 +48,8 @@ class PyBook:
             if not os.path.exists(chapter.path):
                 logger.info('Creating %s' % chapter.path)
                 os.mknod(chapter.path)
-            if chapter.sub_items:
-                self.__create_nodes(chapter.sub_items)
+            if chapter.articles:
+                self.__create_nodes(chapter.articles)
 
     def build(self):
         logger.info('Start Building ...')
