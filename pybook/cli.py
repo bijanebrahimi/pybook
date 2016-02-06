@@ -12,8 +12,17 @@ def pybook_init(root=None):
     if not os.path.isabs(root):
         root = os.path.abspath(root)
     pybook = PyBook(root)
-    pybook.read_config()
     pybook.init()
+
+def pybook_build(root=None, build='build'):
+    if not root:
+        root = os.getcwd()
+    if not os.path.isabs(root):
+        root = os.path.abspath(root)
+
+    # TODO: check for specific renderer
+    pybook = PyBook(root, build)
+    pybook.build()
 
 def main():
     parser = argparse.ArgumentParser(description='PyBook')
@@ -28,7 +37,7 @@ def main():
 
     build_parser = command.add_parser('build')
     build_parser.add_argument('-v', '--verbose',
-                              action='store_true',
+                              action='count',
                               help='Be verbose')
 
     build_parser.add_argument('-b', '--build',
@@ -36,10 +45,12 @@ def main():
 
     args = parser.parse_args()
     if args.verbose:
-        verbose_levels = [logging.INFO, logging.DEBUG]
-        logging.basicConfig(level=verbose_levels[args.verbose-1])
-        logger = logging.getLogger('pybook')
-        logger.setLevel(verbose_levels[args.verbose-1])
+        verbosity_levels = [logging.INFO, logging.DEBUG]
+        verbosity_level = args.verbose-1
+        logging.basicConfig(level=verbosity_levels[verbosity_level])
+        logger.setLevel(verbosity_levels[verbosity_level])
 
     if args.command == 'init':
         pybook_init(args.root)
+    elif args.command == 'build':
+        pybook_build(args.build)

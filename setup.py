@@ -12,6 +12,6 @@ setup(name='pybook',
       install_requires=['argparse'],
       entry_points="""
       [console_scripts]
-      pybook = pybook.pybook:main
+      pybook = pybook.cli:main
       """,
       zip_safe=False)
