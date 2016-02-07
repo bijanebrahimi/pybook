@@ -8,13 +8,13 @@ from pybook.utils import logger
 class Book:
     def __init__(self, root, build='build', **book_config):
         self.config = BookConfig(root=root, build=build, **book_config)
-        self.book_items = []
+        self.chapters = []
 
         self.renderers = {}
 
     def init(self):
         logger.info('Start Initializing ...')
-        self.read_config_and_summary()
+        self.read_config()
         if not os.path.exists(self.config.root):
             logger.info('Creating Root Directory')
             os.mkdir(self.config.root)
@@ -29,13 +29,13 @@ class Book:
                 f.write('# Summary\n')
                 f.write('\n')
                 f.write('- [Introduction](./chapter_1/intro.md)\n')
-
+        self.read_summary()
         self.create_chapters()
         logger.info('Initialization Finished')
 
     def create_chapters(self, chapters=None):
         if not chapters:
-            chapters = self.book_items
+            chapters = self.chapters
         for chapter in chapters:
             chapter_dir = os.path.dirname(chapter.path)
             if not os.path.exists(chapter_dir):
@@ -43,7 +43,9 @@ class Book:
                 os.mkdir(chapter_dir)
             if not os.path.exists(chapter.path):
                 logger.info('Creating %s' % chapter.path)
-                os.mknod(chapter.path)
+                with open(chapter.path, 'w') as f:
+                    f.write("# %s\n\n" % chapter.name)
+                    f.write("Content goes here.\n")
             if chapter.articles:
                 self.create_chapters(chapter.articles)
 
@@ -60,4 +62,12 @@ class Book:
     def read_config_and_summary(self):
         self.read_config()
         summary_path = self.config.summary_abs
-        self.book_items = construct_bookitems(summary_path)
+        self.chapters = construct_bookitems(summary_path)
+
+    def read_summary(self):
+        summary_path = self.config.summary_abs
+        self.chapters = construct_bookitems(summary_path)
+
+    @property
+    def summary(self):
+        return self.chapters

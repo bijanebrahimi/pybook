@@ -2,7 +2,7 @@ import os
 import logging
 import argparse
 
-from pybook.book.pybook import PyBook
+from pybook.book.book import Book
 from pybook.utils import logger
 
 
@@ -11,7 +11,7 @@ def pybook_init(root=None):
         root = os.getcwd()
     if not os.path.isabs(root):
         root = os.path.abspath(root)
-    pybook = PyBook(root)
+    pybook = Book(root)
     pybook.init()
 
 def pybook_build(root=None, build='build'):
@@ -21,7 +21,7 @@ def pybook_build(root=None, build='build'):
         root = os.path.abspath(root)
 
     # TODO: check for specific renderer
-    pybook = PyBook(root, build)
+    pybook = Book(root, build)
     pybook.build()
 
 def main():
