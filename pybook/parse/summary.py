@@ -4,13 +4,15 @@ import re
 from pybook.book.bookitem import Affix, Chapter
 from pybook.utils import logger, BookError
 
-def construct_bookitems(path):
+def construct_bookitems(path, root=None):
     with open(path, 'r') as f:
         summary = f.read()
-    items = parse_levels(summary.split('\n'), 0)
+    items = parse_levels(summary.split('\n'),
+                         current_level=0,
+                         root=root)
     return items
 
-def parse_levels(summary, current_level=0):
+def parse_levels(summary, root=None, current_level=0):
     # List of BookItem
     items = []
     while summary:
@@ -25,30 +27,30 @@ def parse_levels(summary, current_level=0):
             except:
                 raise Exception("There's Should be at least one Item since It's not Root")
 
-            sub_items = parse_levels(summary, line_level)
-            last_item.sub_items = sub_items
+            sub_items = parse_levels(summary, current_level=line_level, root=root)
+            last_item.articles = sub_items
             items.append(last_item)
             continue
         else:
             #TODO: check for parse_line returned value
-            item = parse_line(line)
+            item = parse_line(line, root=root)
             if item:
                 items.append(item)
             summary.pop(0)
     return items
 
-def parse_line(line):
+def parse_line(line, root=None):
     line = line.strip()
     chapter_regex = re.compile(" *[\*\-\+]? +\[(.*)\]\((.*)\)")
     affix_regex = re.compile(" *\[(.*)\]")
 
     if chapter_regex.match(line):
-        name, path = re.match(" *[\*\-\+]? +\[(.*)\]\((.*)\)", line).groups()
-        if line.startswith('-'):
-            return Chapter(name, path)
+        title, path = re.match(" *[\*\-\+]? +\[(.*)\]\((.*)\)", line).groups()
+        if line[0] in ['-', '*', '+']:
+            return Chapter(title=title, path=path, root=root)
         else:
-            logger.debug('Affix %s' % name)
-            return Affix(name, path)
+            logger.debug('Affix %s' % title)
+            return Affix(title=title, path=path, root=root)
     elif affix_regex.match(line):
         # TODO: implement Affix
         pass

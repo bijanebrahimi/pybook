@@ -15,7 +15,7 @@ class PyBookParseTest(TestCase):
 
     def test_parse_line(self):
         ch = parse_line('  - [Chapter 1](./chapter_01.md)')
-        assert ch.name == "Chapter 1"
+        assert ch.title == "Chapter 1"
         assert ch.path == "./chapter_01.md"
 
     def test_parse_level(self):
