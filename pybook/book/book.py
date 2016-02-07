@@ -14,7 +14,7 @@ class Book:
 
     def init(self):
         logger.info('Start Initializing ...')
-        self.read_config()
+        self.read_config_and_summary()
         if not os.path.exists(self.config.root):
             logger.info('Creating Root Directory')
             os.mkdir(self.config.root)
@@ -29,15 +29,11 @@ class Book:
                 f.write('# Summary\n')
                 f.write('\n')
                 f.write('- [Introduction](./chapter_1/intro.md)\n')
-                f.write('    - [Who this book is for](./chapter_1/1_1.md)\n')
-                f.write('- [Chapter 1](./chapter_2/Usage.md)\n')
 
-        self.__parse_summary()
-        # TODO: iter through contets and create chapter files
-        self.__create_nodes()
+        self.create_chapters()
         logger.info('Initialization Finished')
 
-    def __create_nodes(self, chapters=None):
+    def create_chapters(self, chapters=None):
         if not chapters:
             chapters = self.book_items
         for chapter in chapters:
@@ -49,12 +45,11 @@ class Book:
                 logger.info('Creating %s' % chapter.path)
                 os.mknod(chapter.path)
             if chapter.articles:
-                self.__create_nodes(chapter.articles)
+                self.create_chapters(chapter.articles)
 
     def build(self):
         logger.info('Start Building ...')
-        self.read_config()
-        self.__parse_summary()
+        self.read_config_and_summary()
         for (name, renderer) in self.renderers.items():
             renderer.render()
         logger.info('Building is Finished')
@@ -62,6 +57,7 @@ class Book:
     def read_config(self):
         self.config.read_config()
 
-    def __parse_summary(self):
+    def read_config_and_summary(self):
+        self.read_config()
         summary_path = self.config.summary_abs
         self.book_items = construct_bookitems(summary_path)
