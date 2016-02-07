@@ -9,7 +9,7 @@ setup(name='pybook',
       author_email='bijanebrahimi@riseup.net',
       license='GPLv3',
       packages=['pybook'],
-      install_requires=['argparse'],
+      install_requires=['argparse', 'secretary'],
       entry_points="""
       [console_scripts]
       pybook = pybook.cli:main
