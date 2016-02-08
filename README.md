@@ -1,5 +1,5 @@
 # pybook
-python implementation of [Gitbook](https://github.com/gitbookio/gitbook).
+python implementation of [Gitbook](https://github.com/gitbookio/gitbook). Currently PyBook only creates an ODT version of the book which for now that can be viewed by libreoffice/openoffice. This could be easily then converted to a PDF version.
 
 # Format
 A Book MUST contain at least a README and SUMMARY file and those are the only files PyBook currently supports:
@@ -83,3 +83,7 @@ $ pybook init --verbose
 ```
 $ pybook --help
 ```
+
+# CHANGELOG
+## version 0.1
+- added odt renderer

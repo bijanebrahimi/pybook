@@ -3,8 +3,8 @@ from setuptools import setup
 
 setup(name='pybook',
       version='0.1',
-      description='Book Creator Platform (python implementation)',
-      url='http://github.com/bijanebrahimi/pypython',
+      description='Book Creator Platform (python implementation og GitBook)',
+      url='http://github.com/bijanebrahimi/pybook',
       author='Bijan Ebrahimi',
       author_email='bijanebrahimi@riseup.net',
       license='GPLv3',
