@@ -4,14 +4,16 @@
 python implementation of [Gitbook](https://github.com/gitbookio/gitbook). Currently PyBook only creates an ODT version of the book which for now that can be viewed by libreoffice/openoffice. This could be easily then converted to a PDF version.
 
 # Getting Started
-For a starter, Clone [GitBook'a Javascript Book](htpps://github.com/GitbookIO/javascript):
+For a starter, Clone [GitBook's Javascript Book](htpps://github.com/GitbookIO/javascript):
 
 ```
-    $ git clone git@github.com:GitbookIO/javascript.git gitbook-javascript
-    $ cd gitbook-javascript
-    $ pybook build --verbose
-    $ ls build/javascript.odt
+$ git clone git@github.com:GitbookIO/javascript.git gitbook-javascript
+$ cd gitbook-javascript
+$ pybook build --verbose
+$ ls build/book.odt
 ```
+
+![Book Preview](https://bijanebrahimi.github.io/pybook/images/javascript-odt-preview.png)
 
 Or you can start writing you own book from stratch:
 
@@ -28,7 +30,7 @@ Using pip:
 # pip install git+https://github.com/bijanebrahimi/pybook.git
 ```
 
-Manually
+Install manually:
 
 ```
 $ git clone https://github.com/bijanebrahimi/pybook.git
