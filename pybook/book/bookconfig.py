@@ -35,12 +35,13 @@ class BookConfig:
     def read_config(self):
         try:
             config_path = os.path.join(os.path.abspath(self.root), 'book.json')
-            logger.debug('Reading book.json')
-            with open(config_path, 'r') as config_file:
-                book_json = json.loads(config_file.read())
-        except FileNotFoundError as e:
-            logger.debug('Cannot find book.json File')
-            return
+            if os.path.exists(config_path):
+                logger.debug('Reading book.json')
+                with open(config_path, 'r') as config_file:
+                    book_json = json.loads(config_file.read())
+            else:
+                logger.debug('Cannot find book.json File')
+                return
         except Exception as e:
             # TODO: raise Exception as this should not happen
             logger.debug('Error Reading book.json File')
@@ -60,7 +61,7 @@ class BookConfig:
 
     @property
     def summary_abs(self):
-        return os.path.join(self.root, self.summary_rel)
+        return os.path.realpath(os.path.join(self.root, self.summary_rel))
 
     @property
     def readme_rel(self):
@@ -68,4 +69,4 @@ class BookConfig:
 
     @property
     def readme_abs(self):
-        return os.path.join(self.root, self.readme_rel)
+        return os.path.realpath(os.path.join(self.root, self.readme_rel))

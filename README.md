@@ -1,4 +1,6 @@
 # pybook
+![Build Status](https://travis-ci.org/bijanebrahimi/pybook.svg?branch=development)
+
 python implementation of [Gitbook](https://github.com/gitbookio/gitbook). Currently PyBook only creates an ODT version of the book which for now that can be viewed by libreoffice/openoffice. This could be easily then converted to a PDF version.
 
 # Getting Started
@@ -95,5 +97,5 @@ PyBook uses `jinja2` to render Book's chapters.
 For more information please visit [GitBook Templating](http://help.gitbook.com/format/templating.html) and [Jinja2 Documentation](http://jinja.pocoo.org/).
 
 # CHANGELOG
-## version 0.1
-- added odt renderer
+- **0.1.1**: added python 2.7 support
+- **0.1**: added odt renderer

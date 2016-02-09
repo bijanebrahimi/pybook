@@ -39,7 +39,8 @@ class Affix(BookItem):
 
 class Chapter(BookItem):
     def __init__(self, root=None, title=None, path=None):
-        super(Chapter, self).__init__(root=root)
+        # Old style to stay compatible with python 2.6
+        BookItem.__init__(self, root=root)
         self.title = title
         self.path = path
         self.articles = []
