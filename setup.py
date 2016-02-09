@@ -30,5 +30,5 @@ setup(name='pybook',
       """,
       extras_require={
           'testing': ['pytest', 'setuptools']
-      }
+      },
       zip_safe=False)
