@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
@@ -28,7 +29,9 @@ setup(name='pybook',
       [console_scripts]
       pybook = pybook.cli:main
       """,
+      tests_require=['pytest'],
+      cmdclass={'test': PyTest},
+      test_suite='tests',
       extras_require={
           'testing': ['pytest', 'setuptools']
-      },
-      zip_safe=False)
+      })
