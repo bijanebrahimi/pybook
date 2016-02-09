@@ -31,7 +31,6 @@ setup(name='pybook',
       """,
       tests_require=['pytest'],
       cmdclass={'test': PyTest},
-      test_suite='tests',
       extras_require={
           'testing': ['pytest', 'setuptools']
       })
