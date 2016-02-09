@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
@@ -15,7 +16,7 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 setup(name='pybook',
-      version='0.1.1',
+      version='0.1.2',
       description='Book Creator Platform (python implementation og GitBook)',
       url='http://github.com/bijanebrahimi/pybook',
       author='Bijan Ebrahimi',
@@ -28,4 +29,8 @@ setup(name='pybook',
       [console_scripts]
       pybook = pybook.cli:main
       """,
-      zip_safe=False)
+      tests_require=['pytest'],
+      cmdclass={'test': PyTest},
+      extras_require={
+          'testing': ['pytest', 'setuptools']
+      })
