@@ -28,4 +28,7 @@ setup(name='pybook',
       [console_scripts]
       pybook = pybook.cli:main
       """,
+      extras_require={
+          'testing': ['pytest', 'setuptools']
+      }
       zip_safe=False)
