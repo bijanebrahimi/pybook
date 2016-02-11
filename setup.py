@@ -16,7 +16,7 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 setup(name='pybook',
-      version='0.1.2',
+      version='0.1.3',
       description='Book Creator Platform (python implementation og GitBook)',
       url='http://github.com/bijanebrahimi/pybook',
       author='Bijan Ebrahimi',

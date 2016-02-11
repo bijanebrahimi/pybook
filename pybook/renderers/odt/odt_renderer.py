@@ -15,7 +15,8 @@ class ODTRenderer(Renderer):
         self.set_template(template)
         self.book = book
         self.set_destination(destination)
-        self.engine = Secretary(markdown_extras=['fenced-code-blocks'])
+        self.engine = Secretary(markdown_extras=['fenced-code-blocks',
+                                                 'footnotes'])
         self.engine.environment.filters.update(filters)
 
     def set_template(self, template):

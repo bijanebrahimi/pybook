@@ -1,7 +1,7 @@
 # pybook
 ![Build Status](https://travis-ci.org/bijanebrahimi/pybook.svg?branch=Development)
 
-python implementation of [Gitbook](https://github.com/gitbookio/gitbook). Currently PyBook only creates an ODT version of the book which for now that can be viewed by libreoffice/openoffice. This could be easily then converted to a PDF version.
+python implementation of [Gitbook](https://github.com/gitbookio/gitbook). Currently PyBook only creates an **ODT** version of the book for now that can be viewed by libreoffice/openoffice. This could be easily then converted to a PDF version.
 
 # Getting Started
 For a starter, Clone [GitBook's Javascript Book](htpps://github.com/GitbookIO/javascript):
@@ -13,8 +13,6 @@ $ pybook build --verbose
 $ ls build/book.odt
 ```
 
-![Book Preview](https://bijanebrahimi.github.io/pybook/images/javascript-odt-preview.png)
-
 Or you can start writing you own book from stratch:
 
 ```
@@ -22,6 +20,9 @@ $ mkdir pybook-example
 $ cd pybook-example
 $ pybook init --verbose
 ```
+
+# Preview
+Below is a preview of [Javascript Book](https://github/gitio/javascript): ![Book Preview](https://bijanebrahimi.github.io/pybook/images/javascript-odt-preview.png)
 
 # Install
 Using pip:
@@ -36,7 +37,6 @@ Install manually:
 $ git clone https://github.com/bijanebrahimi/pybook.git
 $ cd pybook
 # python setup install
-$ pybook --help
 ```
 
 # Getting help
@@ -99,6 +99,7 @@ PyBook uses `jinja2` to render Book's chapters.
 For more information please visit [GitBook Templating](http://help.gitbook.com/format/templating.html) and [Jinja2 Documentation](http://jinja.pocoo.org/).
 
 # CHANGELOG
+- **0.1.3**: Fixed creation of chapters at init
 - **0.1.2**: removed python 2.6 support
 - **0.1.1**: added python 2.7 support
 - **0.1**: added odt renderer
