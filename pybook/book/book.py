@@ -32,7 +32,7 @@ class Book:
             with open(self.config.summary_abs, 'w') as f:
                 f.write('# Summary\n')
                 f.write('\n')
-                f.write('- [Introduction](./chapter_1/intro.md)\n')
+                f.write('- [Introduction](./README.md)\n')
         self.read_summary()
         self.create_chapters()
         logger.info('Initialization Finished')
@@ -43,14 +43,15 @@ class Book:
         logger.debug(chapters)
         for chapter in chapters:
             logger.debug('[%s]' % chapter.path)
-            chapter_dir = os.path.dirname(chapter.path)
+            chapter_dir = os.path.join(self.config.root, os.path.dirname(chapter.path))
             if not os.path.exists(chapter_dir):
                 logger.info('Creating %s' % chapter_dir)
                 os.mkdir(chapter_dir)
-            if not os.path.exists(chapter.path):
-                logger.info('Creating %s' % chapter.path)
-                with open(chapter.path, 'w') as f:
-                    f.write("# %s\n\n" % chapter.name)
+            chapter_path = os.path.join(self.config.root, chapter.path)
+            if not os.path.exists(chapter_path):
+                logger.info('Creating %s' % chapter_path)
+                with open(chapter_path, 'w') as f:
+                    f.write("# %s\n\n" % chapter.title)
                     f.write("Content goes here.\n")
             if chapter.articles:
                 self.create_chapters(chapter.articles)
