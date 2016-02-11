@@ -1,5 +1,5 @@
 # pybook
-![Build Status](https://travis-ci.org/bijanebrahimi/pybook.svg?branch=Development)
+![Build Status](https://travis-ci.org/bijanebrahimi/pybook.svg?branch=release)
 
 python implementation of [Gitbook](https://github.com/gitbookio/gitbook). Currently PyBook only creates an **ODT** version of the book for now that can be viewed by libreoffice/openoffice. This could be easily then converted to a PDF version.
 
