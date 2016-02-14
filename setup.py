@@ -23,7 +23,10 @@ setup(name='pybook',
       author_email='bijanebrahimi@riseup.net',
       license='GPLv3',
       packages=['pybook'],
-      install_requires=['argparse', 'secretary'],
+      install_requires=['argparse', 'secretary==0.3.5'],
+      dependency_links = [
+        'https://github.com/bijanebrahimi/secretary/tarball/master#egg=secretary-0.3.5'
+      ],
       test_suite='tests',
       entry_points="""
       [console_scripts]
